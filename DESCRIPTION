@@ -1,0 +1,36 @@
+Package: crisprBwa
+Version: 0.99.0
+Date: 2022-01-21
+Title: BWA-based alignment of CRISPR gRNA spacer sequences
+Authors@R: c(
+    person("Jean-Philippe", "Fortin", email = "fortin946@gmail.com", role = c("aut", "cre")))
+Depends:
+    methods
+Imports:
+    Biostrings,
+    BSgenome,
+    crisprBase (>= 0.99.8),
+    GenomeInfoDb,
+    Rbwa,
+    stats,
+    stringr,
+    utils
+Suggests:
+    BiocStyle,
+    BSgenome.Hsapiens.UCSC.hg38,
+    knitr,
+    rmarkdown,
+    testthat
+biocViews: CRISPR, FunctionalGenomics, Alignment
+Description: Provides a user-friendly interface to map on-targets and off-targets
+    of CRISPR gRNA spacer sequences using bwa. The alignment is fast, 
+    and can be performed using either commonly-used or custom CRISPR nucleases.
+    The alignment can work with any reference or custom genomes.
+    Currently not supported on Windows machines.
+License: MIT + file LICENSE
+Encoding: UTF-8
+RoxygenNote: 7.1.2
+VignetteBuilder: knitr
+BugReports: https://github.com/Jfortin1/crisprBwa/issues
+URL: https://github.com/Jfortin1/crisprBwa
+OS_type: unix

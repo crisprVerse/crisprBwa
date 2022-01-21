@@ -1,0 +1,147 @@
+---
+title: "crisprBwa: alignment of gRNA spacer sequences using BWA"
+author: 
+- name: Jean-Philippe Fortin
+  affiliation: Department of Data Science and Statistical Computing, gRED, 
+   Genentech
+  email: fortin946@gmail.com
+date: "`r Sys.Date()`"
+output: 
+  BiocStyle::html_document:
+    toc_float: true
+#    theme: paper
+    number_sections: true
+vignette: >
+  %\VignetteIndexEntry{Introduction to crisprBwa}
+  %\VignetteEngine{knitr::rmarkdown}
+  \usepackage[utf8]{inputenc}
+bibliography: references.bib
+---
+
+
+
+# Installation
+
+`crisprBwa` can be installed from Bioconductor using the following
+commands in a fresh R session:
+
+```{r, eval=FALSE}
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install("crisprBwa")
+```
+
+
+# Overview of crisprBwa
+
+`crisprBwa` provides two main functions to align short DNA sequences to
+a reference genome using the short read aligner BWA-backtrack [@bwa]
+and return the alignments as R objects: `runBwa` and `runCrisprBwa``.
+It utilizes the Bioconductor package `Rbwa` to access the BWA program
+in a platform-independent manner. This means that users do not need to install
+BWA prior to using `crisprBwa`. 
+
+
+The latter function (`runCrisprBwa`) is specifically designed
+to map and annotate CRISPR guide RNA (gRNA) spacer sequences using
+CRISPR nuclease objects and CRISPR genomic arithmetics defined in
+the Bioconductor `crisprBase` package. This enables a fast and accurate
+on-target and off-target search of gRNA spacer sequences for virtually any
+type of CRISPR nucleases. 
+
+
+# Building a bwa index
+
+To use `runBwa` or `runCrisprBwa`, users need to first build a BWA
+genome index. For a given genome, this step has to be done only once. 
+The `Rbwa` package conveniently provides the function `bwa_build_index`
+to build a BWA index from any custom genome from a FASTA file.
+
+As an example, we build a BWA index for a small portion of the human
+chromosome 12 (`chr12.fa` file provided in the `crisprBwa` package) and
+save the index file as `myIndex` to a temporary directory:
+
+```{r}
+library(Rbwa)
+fasta <- system.file(package="crisprBwa", "example/chr12.fa")
+outdir <- tempdir()
+index <- file.path(outdir, "chr12")
+Rbwa::bwa_build_index(fasta,
+                      index_prefix=index)
+```
+
+# Alignment using `runCrisprBwa`
+
+As an example, we align 5 spacer sequences (of length 20bp) to the
+custom genome built above, allowing a maximum of 3 mismatches between the 
+spacer and protospacer sequences. 
+
+We specify that the search is for the wildtype Cas9 (SpCas9) nuclease
+by providing the `CrisprNuclease` object `SpCas9` available through the 
+`crisprBase` package. The argument `canonical=FALSE` specifies that 
+non-canonical PAM sequences are also considered (NAG and NGA for SpCas9).
+The function `getAvailableCrisprNucleases` in `crisprBase` returns a character
+vector of available `crisprNuclease` objects found in `crisprBase`.
+
+We also need to provide a `BSgenome` object corresponding to the reference
+genome used for alignment to extract protospacer and PAM sequences of the 
+target sequences. 
+
+```{r}
+library(crisprBwa)
+library(BSgenome.Hsapiens.UCSC.hg38)
+data(SpCas9, package="crisprBase")
+crisprNuclease <- SpCas9
+bsgenome <- BSgenome.Hsapiens.UCSC.hg38
+spacers <- c("AGCTGTCCGTGGGGGTCCGC",
+             "CCCCTGCTGCTGTGCCAGGC",
+             "ACGAACTGTAAAAGGCTTGG",
+             "ACGAACTGTAACAGGCTTGG",
+             "AAGGCCCTCAGAGTAATTAC")
+runCrisprBwa(spacers,
+             bsgenome=bsgenome,
+             crisprNuclease=crisprNuclease,
+             n_mismatches=3,
+             canonical=FALSE,
+             bwa_index=index)
+```
+
+
+
+# Applications beyond CRISPR
+
+The function `runBwa` is similar to `runCrisprBwa`,
+but does not impose constraints on PAM sequences.
+It can be used to search for any short read sequence in a genome.
+
+## Example using RNAi (siRNA design)
+
+Seed-related off-targets caused by mismatch tolerance outside of the
+seed region is a well-studied and characterized problem observed in RNA
+interference (RNAi) experiments. `runBWa` can be used to map shRNA/siRNA seed
+sequences to reference genomes to predict putative off-targets:
+
+```{r, eval=TRUE}
+seeds <- c("GTAAGCGGAGTGT", "AACGGGGAGATTG")
+runBwa(seeds,
+       n_mismatches=2,
+       bwa_index=index)
+```
+
+
+
+
+
+
+# Session info
+
+```{r}
+sessionInfo()
+```
+
+# References
+
+
+
+
