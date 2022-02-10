@@ -53,7 +53,8 @@
 #' @importFrom crisprBase nucleaseName pams pamLength pamIndices
 #' @importFrom crisprBase spacerLength spacerLength<- pamSide isRnase
 #' @importFrom crisprBase hasSpacerGap
-#' @importFrom GenomeInfoDb seqnames
+#' @importFrom crisprBase getPamRanges
+#' @importFrom GenomeInfoDb seqnames seqlengths 
 runCrisprBwa <- function(spacers,
                          bwa_index=NULL,
                          bsgenome=NULL,
@@ -136,6 +137,17 @@ runCrisprBwa <- function(spacers,
     pams.noncanonical <- pams(crisprNuclease,
                               primary=FALSE,
                               as.character=TRUE)
+
+    # Filtering out PAMs falling outside of chrs
+    pamRanges <- getPamRanges(seqnames=aln$chr,
+                              pam_site=aln$pam_site,
+                              strand=aln$strand,
+                              nuclease=crisprNuclease)
+    chr_lens <- seqlengths(bsgenome)[as.character(seqnames(pamRanges))]
+    valid <- start(pamRanges)>0 & end(pamRanges) <= chr_lens
+    aln <- aln[valid,,drop=FALSE]
+
+
     if (nrow(aln)>0){
         aln <- .addPamSequences(aln,
                                 bsgenome=bsgenome,
