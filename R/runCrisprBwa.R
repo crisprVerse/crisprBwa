@@ -55,6 +55,7 @@
 #' @importFrom crisprBase hasSpacerGap
 #' @importFrom crisprBase getPamRanges
 #' @importFrom GenomeInfoDb seqnames seqlengths 
+#' @importFrom BiocGenerics start end
 runCrisprBwa <- function(spacers,
                          bwa_index=NULL,
                          bsgenome=NULL,

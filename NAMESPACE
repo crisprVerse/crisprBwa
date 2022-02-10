@@ -3,6 +3,8 @@
 export(runBwa)
 export(runCrisprBwa)
 importFrom(BSgenome,getSeq)
+importFrom(BiocGenerics,end)
+importFrom(BiocGenerics,start)
 importFrom(Biostrings,DNAStringSet)
 importFrom(GenomeInfoDb,seqlengths)
 importFrom(GenomeInfoDb,seqnames)
