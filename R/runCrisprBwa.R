@@ -3,7 +3,7 @@
 #' 
 #' @param spacers Character vector of DNA sequences corresponding
 #'     to gRNA spacer sequences. Must all be of equal length. 
-#' @param bsgenome BSgenome object to be used in spacer mode. 
+#' @param bsgenome BSgenome object.
 #' @param bwa_index Path to the bwa index to be used for alignment.
 #' @param crisprNuclease \code{CrisprNuclease} object. 
 #' @param canonical Should only canonical PAM sequences be considered?
@@ -53,7 +53,7 @@
 #' @importFrom crisprBase nucleaseName pams pamLength pamIndices
 #' @importFrom crisprBase spacerLength spacerLength<- pamSide isRnase
 #' @importFrom crisprBase hasSpacerGap
-#' @importFrom crisprBase getPamRanges
+#' @importFrom crisprBase getProtospacerRanges
 #' @importFrom GenomeInfoDb seqnames seqlengths 
 #' @importFrom BiocGenerics start end
 runCrisprBwa <- function(spacers,
@@ -140,14 +140,13 @@ runCrisprBwa <- function(spacers,
                               as.character=TRUE)
 
     # Filtering out PAMs falling outside of chrs
-    pamRanges <- getPamRanges(seqnames=aln$chr,
-                              pam_site=aln$pam_site,
-                              strand=aln$strand,
-                              nuclease=crisprNuclease)
-    chr_lens <- seqlengths(bsgenome)[as.character(seqnames(pamRanges))]
-    valid <- start(pamRanges)>0 & end(pamRanges) <= chr_lens
+    protoRanges <- getProtospacerRanges(seqnames=aln$chr,
+                                        pam_site=aln$pam_site,
+                                        strand=aln$strand,
+                                        nuclease=crisprNuclease)
+    chr_lens <- seqlengths(bsgenome)[as.character(seqnames(protoRanges))]
+    valid <- start(protoRanges)>0 & end(protoRanges) <= chr_lens
     aln <- aln[valid,,drop=FALSE]
-
 
     if (nrow(aln)>0){
         aln <- .addPamSequences(aln,
