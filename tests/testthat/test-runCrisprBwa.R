@@ -25,7 +25,6 @@ Cas12a <- AsCas12a
 
 
 
-
 spacers_cas9 <- c("AGCTGTCCGTGGGGGTCCGC",
                   "CCCCTGCTGCTGTGCCAGGC",
                   "ACGAACTGTAAAAGGCTTGG",
@@ -37,6 +36,7 @@ spacers_cas9 <- c("AGCTGTCCGTGGGGGTCCGC",
 
 
 test_that('Testing runCrisprBwa with Cas9 canonical', {
+    update <- FALSE
     results_cas9_mm0 <- runCrisprBwa(spacers_cas9,
                                      bsgenome=bsgenome,
                                      bwa_index=index,
@@ -62,17 +62,22 @@ test_that('Testing runCrisprBwa with Cas9 canonical', {
                                      crisprNuclease=Cas9,
                                      canonical=TRUE)
     expect_equal_to_reference(results_cas9_mm0,
-                              file=file.path("objects/results_cas9_mm0.rds"))
+                              file=file.path("objects/results_cas9_mm0.rds"),
+                              update=update)
     expect_equal_to_reference(results_cas9_mm1,
-                              file=file.path("objects/results_cas9_mm1.rds"))
+                              file=file.path("objects/results_cas9_mm1.rds"),
+                              update=update)
     expect_equal_to_reference(results_cas9_mm2,
-                              file=file.path("objects/results_cas9_mm2.rds"))
+                              file=file.path("objects/results_cas9_mm2.rds"),
+                              update=update)
     expect_equal_to_reference(results_cas9_mm3,
-                              file=file.path("objects/results_cas9_mm3.rds"))
+                              file=file.path("objects/results_cas9_mm3.rds"),
+                              update=update)
 })
 
 
 test_that('Te sting runCrisprBwa with Cas9 non-canonical', {
+    update <- FALSE
     results_cas9_mm0_nc <- runCrisprBwa(spacers_cas9,
                                         bsgenome=bsgenome,
                                         bwa_index=index,
@@ -98,13 +103,16 @@ test_that('Te sting runCrisprBwa with Cas9 non-canonical', {
                                         crisprNuclease=Cas9,
                                         canonical=FALSE)
     expect_equal_to_reference(results_cas9_mm0_nc,
-                              file=file.path("objects/results_cas9_mm0_nc.rds"))
+                              file=file.path("objects/results_cas9_mm0_nc.rds"),
+                              update=update)
     expect_equal_to_reference(results_cas9_mm1_nc,
-                              file=file.path("objects/results_cas9_mm1_nc.rds"))
+                              file=file.path("objects/results_cas9_mm1_nc.rds"),
+                              update=update)
     expect_equal_to_reference(results_cas9_mm2_nc,
-                              file=file.path("objects/results_cas9_mm2_nc.rds"))
+                              file=file.path("objects/results_cas9_mm2_nc.rds"),
+                              update=update)
     expect_equal_to_reference(results_cas9_mm3_nc,
-                              file=file.path("objects/results_cas9_mm3_nc.rds"))
+                              file=file.path("objects/results_cas9_mm3_nc.rds"),update=update)
 })
 
 
@@ -118,6 +126,7 @@ spacers_cas9_short<- c("TGTCCGTGGGGGTCCGC",
 
 
 test_that('Testing runCrisprBwa with Cas9 (short spacers)', {
+    update <- FALSE
     expect_error(runCrisprBwa(spacers_cas9_short,
                               bsgenome=bsgenome,
                               bwa_index=index,
@@ -132,7 +141,8 @@ test_that('Testing runCrisprBwa with Cas9 (short spacers)', {
                                        canonical=FALSE,
                                        force_spacer_length=TRUE)
     expect_equal_to_reference(results_short_cas9,
-                              file=file.path("objects/results_short_cas9.rds"))
+                              file=file.path("objects/results_short_cas9.rds"),
+                              update=update)
 })
 
 
@@ -145,10 +155,8 @@ spacers_cas12a <- c("CAGTTCGTACTGGGAAGGCTTTG",
 
 
 
-
-
 test_that('Testing runCrisprBwa with Cas12a', {
-                      
+    update <- FALSE
     results_cas12a_mm0 <- runCrisprBwa(spacers_cas12a,
                                        bsgenome=bsgenome,
                                        bwa_index=index,
@@ -174,14 +182,19 @@ test_that('Testing runCrisprBwa with Cas12a', {
                                        crisprNuclease=Cas12a,
                                        canonical=TRUE)
     expect_equal_to_reference(results_cas12a_mm0,
-                              file=file.path("objects/results_cas12a_mm0.rds"))
+                              file=file.path("objects/results_cas12a_mm0.rds"),
+                              update=update)
     expect_equal_to_reference(results_cas12a_mm1,
-                              file=file.path("objects/results_cas12a_mm1.rds"))
+                              file=file.path("objects/results_cas12a_mm1.rds"),
+                              update=update)
     expect_equal_to_reference(results_cas12a_mm2,
-                              file=file.path("objects/results_cas12a_mm2.rds"))
+                              file=file.path("objects/results_cas12a_mm2.rds"),
+                              update=update)
     expect_equal_to_reference(results_cas12a_mm3,
-                              file=file.path("objects/results_cas12a_mm3.rds"))
+                              file=file.path("objects/results_cas12a_mm3.rds"),
+                              update=update)
 })
+
 
 
 

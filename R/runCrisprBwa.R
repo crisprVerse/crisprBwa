@@ -10,7 +10,7 @@
 #'     TRUE by default.
 #' @param ignore_pam If TRUE, will return all matches regardless of
 #'     PAM sequence. FALSE by default.
-#' @param n_mismatches Integer between 0 and 3 specifying maximum
+#' @param n_mismatches Integer specifying maximum
 #'     number of mismatches allowed between spacer and protospacer sequences.
 #' @param force_spacer_length Should the spacer length be overwritten in the
 #'     crisprNuclease object? FALSE by default. 
@@ -120,7 +120,7 @@ runCrisprBwa <- function(spacers,
                   n_mismatches=n_mismatches)
 
     if (is.null(aln)){
-        return(.emptyAlignments(n_mismatches))
+        return(.emptyAlignments())
     }
 
     aln$pam_site <- .getPamSiteFromBwaOutput(pos=aln$pos, 
@@ -162,7 +162,7 @@ runCrisprBwa <- function(spacers,
     
 
     if (nrow(aln)==0){
-        aln <- .emptyAlignments(n_mismatches)
+        aln <- .emptyAlignments()
     } else {
         aln <- aln[order(aln$query, aln$n_mismatches),,drop=FALSE]
         aln$pos <- NULL
@@ -175,10 +175,8 @@ runCrisprBwa <- function(spacers,
                                         bsgenome=bsgenome,
                                         crisprNuclease=crisprNuclease)
         aln <- aln[!grepl("N", aln$protospacer),,drop=FALSE]
-        aln <- .addMismatchInfo(aln, n_mismatches)
-        aln <- aln[, .outputColumns(n_mismatches),drop=FALSE]
+        aln <- aln[, .outputColumns(),drop=FALSE]
     }   
-    
     return(aln)
 }
 
@@ -250,31 +248,8 @@ runCrisprBwa <- function(spacers,
 
 
 
-
-
-#' @importFrom Biostrings DNAStringSet
-.addMismatchInfo <- function(aln,
-                             n_mismatches
-){
-    if (n_mismatches>0){
-        mat1 <- as.matrix(DNAStringSet(aln$spacer))
-        mat2 <- as.matrix(DNAStringSet(aln$protospacer))
-        diff <- mat1!=mat2
-        pos <- apply(diff,1, which, simplify=FALSE)
-        pos <- lapply(pos, function(wh){
-            wh <- c(wh, rep(NA, n_mismatches-length(wh)))
-            return(wh)
-        }) 
-        mm <- do.call(rbind, pos)
-        colnames(mm) <- paste0("mm", seq_len(n_mismatches))
-        aln[colnames(mm)] <- mm
-    }
-    return(aln)
-}
-
-
-.emptyAlignments <- function(n_mismatches){
-    cols <- .outputColumns(n_mismatches)
+.emptyAlignments <- function(){
+    cols <- .outputColumns()
     out <- data.frame(matrix(0, ncol=length(cols)))
     colnames(out) <- cols
     out <- out[-1,,drop=FALSE]
@@ -282,7 +257,7 @@ runCrisprBwa <- function(spacers,
 }
 
 
-.outputColumns <- function(n_mismatches){
+.outputColumns <- function(){
     cols <- c("spacer",
               "protospacer",
               "pam",
@@ -291,10 +266,6 @@ runCrisprBwa <- function(spacers,
               "strand",
               "n_mismatches",
               "canonical")
-    if (n_mismatches!=0){
-        mm_cols <- paste0("mm", seq_len(n_mismatches))
-        cols <- c(cols, mm_cols) 
-    }
     return(cols)
 }
 

@@ -22,7 +22,7 @@ to gRNA spacer sequences. Must all be of equal length.}
 
 \item{bwa_index}{Path to the bwa index to be used for alignment.}
 
-\item{bsgenome}{BSgenome object to be used in spacer mode.}
+\item{bsgenome}{BSgenome object.}
 
 \item{crisprNuclease}{\code{CrisprNuclease} object.}
 
@@ -32,7 +32,7 @@ TRUE by default.}
 \item{ignore_pam}{If TRUE, will return all matches regardless of
 PAM sequence. FALSE by default.}
 
-\item{n_mismatches}{Integer between 0 and 3 specifying maximum
+\item{n_mismatches}{Integer specifying maximum
 number of mismatches allowed between spacer and protospacer sequences.}
 
 \item{force_spacer_length}{Should the spacer length be overwritten in the

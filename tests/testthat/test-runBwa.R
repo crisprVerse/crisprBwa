@@ -10,6 +10,7 @@ Rbwa::bwa_build_index(fasta,
 
 
 test_that('Testing runBwa', {
+    update <- FALSE
     seqs <- c("GGAATACGGGAT", "GTGGGGGTTAGACC", "GTGTGGGACGCG") 
     long_seq <- "AGGGAGGAGAGAGAGAGAGGGAGGTGGGTTAGGATTTAGGATTAGTTA"
     results_bwa_0 <- runBwa(seqs, bwa_index=index, n_mismatches=0)
@@ -19,12 +20,16 @@ test_that('Testing runBwa', {
     results_bwa_null <- runBwa(long_seq, bwa_index=index, n_mismatches=0)
 
     expect_equal_to_reference(results_bwa_0,
-                              file=file.path("objects/results_bwa_0.rds"))
+                              file=file.path("objects/results_bwa_0.rds"),
+                              update = update)
     expect_equal_to_reference(results_bwa_1,
-                              file=file.path("objects/results_bwa_1.rds"))
+                              file=file.path("objects/results_bwa_1.rds"),
+                              update = update)
     expect_equal_to_reference(results_bwa_2,
-                              file=file.path("objects/results_bwa_2.rds"))
+                              file=file.path("objects/results_bwa_2.rds"),
+                              update = update)
     expect_equal_to_reference(results_bwa_3,
-                              file=file.path("objects/results_bwa_3.rds"))
+                              file=file.path("objects/results_bwa_3.rds"),
+                              update = update)
     expect_true(nrow(results_bwa_null)==0)
 })

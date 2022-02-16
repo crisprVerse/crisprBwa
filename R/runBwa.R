@@ -82,15 +82,41 @@ runBwa <- function(sequences,
 
 
 
+# #' @importFrom stringr str_extract
+# #' @importFrom utils read.csv
+# .parseBwaResults_old <- function(file){
+#     results <- readLines(file)
+#     start   <- which(grepl("@PG",results))
+#     results <- read.csv(file,
+#                         sep="\t",
+#                         skip=start,
+#                         header=FALSE)
+#     aln <- results[,c(1,3,4),drop=FALSE]
+#     colnames(aln) <- c("query","chr", "pos")
+#     aln$strand <- ifelse(results[,2] %in% c("272", "16"), "-", "+")
+#     if (ncol(results)>11){
+#         tags <- results[,12:ncol(results)]
+#         tags <- apply(tags,1,paste, collapse=";")
+#         n_mismatches <- str_extract(tags, "NM\\:i\\:[0-9]+")
+#         n_mismatches <- gsub("NM\\:i\\:", "", n_mismatches)
+#         aln$n_mismatches <- as.integer(n_mismatches)
+#     } else {
+#         aln <- .bwaEmptyAlignments()
+#     }
+#     return(aln)
+# }
+
 #' @importFrom stringr str_extract
-#' @importFrom utils read.csv
+#' @importFrom readr read_lines read_delim
 .parseBwaResults <- function(file){
-    results <- readLines(file)
+    results <- read_lines(file, n_max=100000L)
     start   <- which(grepl("@PG",results))
-    results <- read.csv(file,
-                        sep="\t",
-                        skip=start,
-                        header=FALSE)
+    results <- suppressWarnings(read_delim(file,
+                          delim="\t",
+                          skip=start,
+                          show_col_types = FALSE,
+                          col_names=NULL))
+    results <- as.data.frame(results)
     aln <- results[,c(1,3,4),drop=FALSE]
     colnames(aln) <- c("query","chr", "pos")
     aln$strand <- ifelse(results[,2] %in% c("272", "16"), "-", "+")
@@ -105,6 +131,8 @@ runBwa <- function(sequences,
     }
     return(aln)
 }
+
+
 
 
 .bwaEmptyAlignments <- function(n_mismatches){
