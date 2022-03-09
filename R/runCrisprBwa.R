@@ -53,7 +53,7 @@
 #' @importFrom crisprBase nucleaseName pams pamLength pamIndices
 #' @importFrom crisprBase spacerLength spacerLength<- pamSide isRnase
 #' @importFrom crisprBase hasSpacerGap
-#' @importFrom crisprBase getProtospacerRanges
+#' @importFrom crisprBase getTargetRanges
 #' @importFrom GenomeInfoDb seqnames seqlengths 
 #' @importFrom BiocGenerics start end
 runCrisprBwa <- function(spacers,
@@ -140,10 +140,10 @@ runCrisprBwa <- function(spacers,
                               as.character=TRUE)
 
     # Filtering out PAMs falling outside of chrs
-    protoRanges <- getProtospacerRanges(seqnames=aln$chr,
-                                        pam_site=aln$pam_site,
-                                        strand=aln$strand,
-                                        nuclease=crisprNuclease)
+    protoRanges <- getTargetRanges(seqnames=aln$chr,
+                                   pam_site=aln$pam_site,
+                                   strand=aln$strand,
+                                   nuclease=crisprNuclease)
     chr_lens <- seqlengths(bsgenome)[as.character(seqnames(protoRanges))]
     valid <- start(protoRanges)>0 & end(protoRanges) <= chr_lens
     aln <- aln[valid,,drop=FALSE]
@@ -228,16 +228,16 @@ runCrisprBwa <- function(spacers,
 
 
 
-#' @importFrom crisprBase getSpacerRanges
+#' @importFrom crisprBase getProtospacerRanges
 #' @importFrom BSgenome getSeq
 .addProtospacerSequences <- function(aln,
                                      bsgenome,
                                      crisprNuclease
 ){
-    ranges <- getSpacerRanges(pam_site=aln$pam_site,
-                              strand=aln$strand,
-                              seqnames=aln$chr,
-                              nuclease=crisprNuclease)
+    ranges <- getProtospacerRanges(pam_site=aln$pam_site,
+                                   strand=aln$strand,
+                                   seqnames=aln$chr,
+                                   nuclease=crisprNuclease)
     aln$protospacer <- getSeq(bsgenome,
                               ranges,
                               as.character=TRUE)
