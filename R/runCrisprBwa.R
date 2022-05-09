@@ -145,7 +145,7 @@ runCrisprBwa <- function(spacers,
                                    strand=aln$strand,
                                    nuclease=crisprNuclease)
     chr_lens <- seqlengths(bsgenome)[as.character(seqnames(protoRanges))]
-    valid <- start(protoRanges)>0 & end(protoRanges) <= chr_lens
+    valid <- BiocGenerics::start(protoRanges)>0 & BiocGenerics::end(protoRanges) <= chr_lens
     aln <- aln[valid,,drop=FALSE]
 
     if (nrow(aln)>0){
