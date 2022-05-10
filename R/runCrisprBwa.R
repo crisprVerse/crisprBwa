@@ -127,6 +127,12 @@ runCrisprBwa <- function(spacers,
                                              strand=aln$strand, 
                                              spacer.len=spacer.len,
                                              crisprNuclease=crisprNuclease)
+    aln <- aln[aln$pam_site>0,,drop=FALSE]
+    if (nrow(aln)==0){
+        return(.emptyAlignments())
+    }
+    
+
 
     seq_choices <- seqnames(bsgenome)
     aln <- aln[aln$chr %in% seq_choices,,drop=FALSE]
@@ -139,6 +145,7 @@ runCrisprBwa <- function(spacers,
                               primary=FALSE,
                               as.character=TRUE)
 
+    
     # Filtering out PAMs falling outside of chrs
     protoRanges <- getTargetRanges(seqnames=aln$chr,
                                    pam_site=aln$pam_site,
