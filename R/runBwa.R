@@ -65,8 +65,8 @@ runBwa <- function(sequences,
             sai_files=output.sai,
             N=TRUE, #complete search
             n=n_mismatches, #edit distance
-            k=n_mismatches, #edit distance seed
-            l=nchar(sequences)[1], #length of the seed
+            #k=n_mismatches, #edit distance seed
+            l=nchar(sequences)[1]*3, #length of the seed
             o=0) #max gaps open
     bwa_sam(type="single",
             fastq_files=fastq,
