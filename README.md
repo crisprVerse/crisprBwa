@@ -7,9 +7,9 @@ crisprBwa: alignment of gRNA spacer sequences using BWA
     -   [Software requirements](#software-requirements)
         -   [OS Requirements](#os-requirements)
         -   [R Dependencies](#r-dependencies)
-    -   [Installation from GitHub](#installation-from-github)
     -   [Installation from
         Bioconductor](#installation-from-bioconductor)
+    -   [Installation from GitHub](#installation-from-github)
 -   [Building a bwa index](#building-a-bwa-index)
 -   [Alignment using `runCrisprBwa`](#alignment-using-runcrisprbwa)
 -   [Applications beyond CRISPR](#applications-beyond-crispr)
@@ -52,19 +52,6 @@ developed and tested on R version 4.2.
 -   crisprBase: <https://github.com/Jfortin1/crisprBase>
 -   RBwa: <https://github.com/Jfortin1/Rbwa>
 
-## Installation from GitHub
-
-`crisprBwa` and its dependencies can be installed by typing the
-following commands inside of an R session:
-
-``` r
-install.packages("devtools")
-library(devtools)
-install_github("Jfortin1/Rbwa")
-install_github("Jfortin1/crisprBase")
-install_github("Jfortin1/crisprBwa")
-```
-
 ## Installation from Bioconductor
 
 `crisprBwa` can be installed from Bioconductor using the following
@@ -73,6 +60,19 @@ commands in a fresh R session:
 ``` r
 install.packages("BiocManager")
 BiocManager::install("crisprBwa")
+```
+
+## Installation from GitHub
+
+Alternatively, `crisprBwa` and its dependencies can be installed by
+typing the following commands inside of an R session:
+
+``` r
+install.packages("devtools")
+library(devtools)
+install_github("crisprVerse/Rbwa")
+install_github("crisprVerse/crisprBase")
+install_github("crisprVerse/crisprBwa")
 ```
 
 # Building a bwa index
@@ -251,11 +251,11 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ##  [1] BSgenome.Hsapiens.UCSC.hg38_1.4.4 BSgenome_1.63.5                  
-    ##  [3] rtracklayer_1.55.4                Biostrings_2.63.2                
-    ##  [5] XVector_0.35.0                    GenomicRanges_1.47.6             
-    ##  [7] GenomeInfoDb_1.31.6               IRanges_2.29.1                   
-    ##  [9] S4Vectors_0.33.11                 BiocGenerics_0.41.2              
+    ##  [1] BSgenome.Hsapiens.UCSC.hg38_1.4.4 BSgenome_1.64.0                  
+    ##  [3] rtracklayer_1.55.4                Biostrings_2.64.0                
+    ##  [5] XVector_0.35.0                    GenomicRanges_1.48.0             
+    ##  [7] GenomeInfoDb_1.32.2               IRanges_2.30.0                   
+    ##  [9] S4Vectors_0.33.11                 BiocGenerics_0.42.0              
     ## [11] crisprBwa_1.1.2                   Rbwa_1.1.0                       
     ## 
     ## loaded via a namespace (and not attached):
@@ -264,7 +264,7 @@ sessionInfo()
     ##  [5] lattice_0.20-45             vctrs_0.3.8                
     ##  [7] htmltools_0.5.2             yaml_2.3.5                 
     ##  [9] utf8_1.2.2                  XML_3.99-0.9               
-    ## [11] rlang_1.0.2                 pillar_1.7.0               
+    ## [11] rlang_1.0.4                 pillar_1.7.0               
     ## [13] glue_1.6.2                  BiocParallel_1.29.18       
     ## [15] bit64_4.0.5                 matrixStats_0.61.0         
     ## [17] GenomeInfoDbData_1.2.7      lifecycle_1.0.1            
@@ -273,7 +273,7 @@ sessionInfo()
     ## [23] restfulr_0.0.13             Biobase_2.55.0             
     ## [25] knitr_1.37                  tzdb_0.2.0                 
     ## [27] fastmap_1.1.0               parallel_4.2.0             
-    ## [29] fansi_1.0.2                 crisprBase_1.1.2           
+    ## [29] fansi_1.0.2                 crisprBase_1.1.5           
     ## [31] readr_2.1.2                 DelayedArray_0.21.2        
     ## [33] vroom_1.5.7                 bit_4.0.4                  
     ## [35] Rsamtools_2.11.0            rjson_0.2.21               

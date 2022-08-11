@@ -56,19 +56,6 @@ Package was developed and tested on R version 4.2.
 - RBwa: https://github.com/Jfortin1/Rbwa
 
 
-## Installation from GitHub
-
-`crisprBwa` and its dependencies can be installed by typing the
-following commands inside of an R session:
-
-```r
-install.packages("devtools")
-library(devtools)
-install_github("Jfortin1/Rbwa")
-install_github("Jfortin1/crisprBase")
-install_github("Jfortin1/crisprBwa")
-```
-
 
 ## Installation from Bioconductor
 
@@ -79,6 +66,23 @@ commands in a fresh R session:
 install.packages("BiocManager")
 BiocManager::install("crisprBwa")
 ```
+
+
+
+## Installation from GitHub
+
+Alternatively, `crisprBwa` and its dependencies can be installed by typing the
+following commands inside of an R session:
+
+```r
+install.packages("devtools")
+library(devtools)
+install_github("crisprVerse/Rbwa")
+install_github("crisprVerse/crisprBase")
+install_github("crisprVerse/crisprBwa")
+```
+
+
 
 
 
