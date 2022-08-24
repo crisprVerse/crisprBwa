@@ -1,22 +1,31 @@
 crisprBwa: alignment of gRNA spacer sequences using BWA
 ================
 
--   [Overview of crisprBwa](#overview-of-crisprbwa)
--   [Installation and getting
-    started](#installation-and-getting-started)
-    -   [Software requirements](#software-requirements)
-        -   [OS Requirements](#os-requirements)
-        -   [R Dependencies](#r-dependencies)
-    -   [Installation from
-        Bioconductor](#installation-from-bioconductor)
-    -   [Installation from GitHub](#installation-from-github)
--   [Building a bwa index](#building-a-bwa-index)
--   [Alignment using `runCrisprBwa`](#alignment-using-runcrisprbwa)
--   [Applications beyond CRISPR](#applications-beyond-crispr)
-    -   [Example using RNAi (siRNA
-        design)](#example-using-rnai-sirna-design)
--   [Reproducibility](#reproducibility)
--   [References](#references)
+-   <a href="#overview-of-crisprbwa" id="toc-overview-of-crisprbwa">Overview
+    of crisprBwa</a>
+-   <a href="#installation-and-getting-started"
+    id="toc-installation-and-getting-started">Installation and getting
+    started</a>
+    -   <a href="#software-requirements" id="toc-software-requirements">Software
+        requirements</a>
+        -   <a href="#os-requirements" id="toc-os-requirements">OS Requirements</a>
+    -   <a href="#installation-from-bioconductor"
+        id="toc-installation-from-bioconductor">Installation from
+        Bioconductor</a>
+    -   <a href="#installation-from-github"
+        id="toc-installation-from-github">Installation from GitHub</a>
+-   <a href="#building-a-bwa-index" id="toc-building-a-bwa-index">Building a
+    bwa index</a>
+-   <a href="#alignment-using-runcrisprbwa"
+    id="toc-alignment-using-runcrisprbwa">Alignment using
+    <code>runCrisprBwa</code></a>
+-   <a href="#applications-beyond-crispr"
+    id="toc-applications-beyond-crispr">Applications beyond CRISPR</a>
+    -   <a href="#example-using-rnai-sirna-design"
+        id="toc-example-using-rnai-sirna-design">Example using RNAi (siRNA
+        design)</a>
+-   <a href="#reproducibility" id="toc-reproducibility">Reproducibility</a>
+-   <a href="#references" id="toc-references">References</a>
 
 Authors: Jean-Philippe Fortin
 
@@ -45,12 +54,7 @@ CRISPR nucleases.
 ### OS Requirements
 
 This package is supported for macOS and Linux only. Package was
-developed and tested on R version 4.2.
-
-### R Dependencies
-
--   crisprBase: <https://github.com/Jfortin1/crisprBase>
--   RBwa: <https://github.com/Jfortin1/Rbwa>
+developed and tested on R version 4.2.1.
 
 ## Installation from Bioconductor
 
@@ -235,7 +239,7 @@ runBwa(seeds,
 sessionInfo()
 ```
 
-    ## R Under development (unstable) (2022-03-21 r81954)
+    ## R version 4.2.1 (2022-06-23)
     ## Platform: x86_64-apple-darwin17.0 (64-bit)
     ## Running under: macOS Catalina 10.15.7
     ## 
@@ -251,42 +255,43 @@ sessionInfo()
     ## [8] base     
     ## 
     ## other attached packages:
-    ##  [1] BSgenome.Hsapiens.UCSC.hg38_1.4.4 BSgenome_1.64.0                  
-    ##  [3] rtracklayer_1.55.4                Biostrings_2.64.0                
-    ##  [5] XVector_0.35.0                    GenomicRanges_1.48.0             
-    ##  [7] GenomeInfoDb_1.32.2               IRanges_2.30.0                   
-    ##  [9] S4Vectors_0.33.11                 BiocGenerics_0.42.0              
-    ## [11] crisprBwa_1.1.2                   Rbwa_1.1.0                       
+    ##  [1] BSgenome.Hsapiens.UCSC.hg38_1.4.4 BSgenome_1.65.2                  
+    ##  [3] rtracklayer_1.57.0                Biostrings_2.65.2                
+    ##  [5] XVector_0.37.0                    GenomicRanges_1.49.1             
+    ##  [7] GenomeInfoDb_1.33.5               IRanges_2.31.2                   
+    ##  [9] S4Vectors_0.35.1                  BiocGenerics_0.43.1              
+    ## [11] crisprBwa_1.1.3                   Rbwa_1.1.0                       
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] SummarizedExperiment_1.25.3 tidyselect_1.1.2           
-    ##  [3] xfun_0.30                   purrr_0.3.4                
-    ##  [5] lattice_0.20-45             vctrs_0.3.8                
-    ##  [7] htmltools_0.5.2             yaml_2.3.5                 
-    ##  [9] utf8_1.2.2                  XML_3.99-0.9               
-    ## [11] rlang_1.0.4                 pillar_1.7.0               
-    ## [13] glue_1.6.2                  BiocParallel_1.29.18       
-    ## [15] bit64_4.0.5                 matrixStats_0.61.0         
-    ## [17] GenomeInfoDbData_1.2.7      lifecycle_1.0.1            
-    ## [19] stringr_1.4.0               zlibbioc_1.41.0            
-    ## [21] MatrixGenerics_1.7.0        evaluate_0.15              
-    ## [23] restfulr_0.0.13             Biobase_2.55.0             
-    ## [25] knitr_1.37                  tzdb_0.2.0                 
-    ## [27] fastmap_1.1.0               parallel_4.2.0             
-    ## [29] fansi_1.0.2                 crisprBase_1.1.5           
-    ## [31] readr_2.1.2                 DelayedArray_0.21.2        
-    ## [33] vroom_1.5.7                 bit_4.0.4                  
-    ## [35] Rsamtools_2.11.0            rjson_0.2.21               
-    ## [37] hms_1.1.1                   digest_0.6.29              
-    ## [39] stringi_1.7.6               BiocIO_1.5.0               
-    ## [41] grid_4.2.0                  cli_3.3.0                  
-    ## [43] tools_4.2.0                 bitops_1.0-7               
-    ## [45] magrittr_2.0.2              RCurl_1.98-1.6             
-    ## [47] tibble_3.1.6                crayon_1.5.0               
-    ## [49] pkgconfig_2.0.3             ellipsis_0.3.2             
-    ## [51] Matrix_1.4-0                rmarkdown_2.13             
-    ## [53] rstudioapi_0.13             R6_2.5.1                   
-    ## [55] GenomicAlignments_1.31.2    compiler_4.2.0
+    ##  [1] SummarizedExperiment_1.27.1 tidyselect_1.1.2           
+    ##  [3] xfun_0.32                   purrr_0.3.4                
+    ##  [5] lattice_0.20-45             vctrs_0.4.1                
+    ##  [7] htmltools_0.5.3             yaml_2.3.5                 
+    ##  [9] utf8_1.2.2                  XML_3.99-0.10              
+    ## [11] rlang_1.0.4                 pillar_1.8.1               
+    ## [13] glue_1.6.2                  BiocParallel_1.31.12       
+    ## [15] bit64_4.0.5                 matrixStats_0.62.0         
+    ## [17] GenomeInfoDbData_1.2.8      lifecycle_1.0.1            
+    ## [19] stringr_1.4.1               zlibbioc_1.43.0            
+    ## [21] MatrixGenerics_1.9.1        codetools_0.2-18           
+    ## [23] evaluate_0.16               restfulr_0.0.15            
+    ## [25] Biobase_2.57.1              knitr_1.40                 
+    ## [27] tzdb_0.3.0                  fastmap_1.1.0              
+    ## [29] parallel_4.2.1              fansi_1.0.3                
+    ## [31] crisprBase_1.1.5            readr_2.1.2                
+    ## [33] DelayedArray_0.23.1         vroom_1.5.7                
+    ## [35] bit_4.0.4                   Rsamtools_2.13.4           
+    ## [37] rjson_0.2.21                hms_1.1.2                  
+    ## [39] digest_0.6.29               stringi_1.7.8              
+    ## [41] BiocIO_1.7.1                grid_4.2.1                 
+    ## [43] cli_3.3.0                   tools_4.2.1                
+    ## [45] bitops_1.0-7                magrittr_2.0.3             
+    ## [47] RCurl_1.98-1.8              tibble_3.1.8               
+    ## [49] crayon_1.5.1                pkgconfig_2.0.3            
+    ## [51] ellipsis_0.3.2              Matrix_1.4-1               
+    ## [53] rmarkdown_2.15.2            rstudioapi_0.14            
+    ## [55] R6_2.5.1                    GenomicAlignments_1.33.1   
+    ## [57] compiler_4.2.1
 
 # References
 

@@ -39,13 +39,7 @@ type of CRISPR nucleases.
 ### OS Requirements
 
 This package is supported for macOS and Linux only.
-Package was developed and tested on R version 4.2.
-
-### R Dependencies 
-
-- crisprBase: https://github.com/Jfortin1/crisprBase
-- RBwa: https://github.com/Jfortin1/Rbwa
-
+Package was developed and tested on R version 4.2.1.
 
 
 
