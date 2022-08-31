@@ -12,8 +12,6 @@ crisprBwa: alignment of gRNA spacer sequences using BWA
     -   <a href="#installation-from-bioconductor"
         id="toc-installation-from-bioconductor">Installation from
         Bioconductor</a>
-    -   <a href="#installation-from-github"
-        id="toc-installation-from-github">Installation from GitHub</a>
 -   <a href="#building-a-bwa-index" id="toc-building-a-bwa-index">Building a
     bwa index</a>
 -   <a href="#alignment-using-runcrisprbwa"
@@ -58,28 +56,15 @@ developed and tested on R version 4.2.1.
 
 ## Installation from Bioconductor
 
-`crisprBwa` can be installed from Bioconductor using the following
-commands in a fresh R session:
+`crisprBwa` can be installed from from the Bioconductor devel branch
+using the following commands in a fresh R session:
 
 ``` r
-install.packages("BiocManager")
+if (!require("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+
+BiocManager::install(version="devel")
 BiocManager::install("crisprBwa")
-```
-
-The complete documentation for the package can be found
-[here](https://bioconductor.org/packages/devel/bioc/manuals/crisprBwa/man/crisprBwa.pdf).
-
-## Installation from GitHub
-
-Alternatively, `crisprBwa` and its dependencies can be installed by
-typing the following commands inside of an R session:
-
-``` r
-install.packages("devtools")
-library(devtools)
-install_github("crisprVerse/Rbwa")
-install_github("crisprVerse/crisprBase")
-install_github("crisprVerse/crisprBwa")
 ```
 
 # Building a bwa index
