@@ -41,9 +41,13 @@ do not need to install BWA prior to using `crisprBwa`.
 The latter function (`runCrisprBwa`) is specifically designed to map and
 annotate CRISPR guide RNA (gRNA) spacer sequences using CRISPR nuclease
 objects and CRISPR genomic arithmetics defined in the Bioconductor
-`crisprBase` package. This enables a fast and accurate on-target and
-off-target search of gRNA spacer sequences for virtually any type of
-CRISPR nucleases.
+package [crisprBase](https://github.com/crisprVerse/crisprBase). This
+enables a fast and accurate on-target and off-target search of gRNA
+spacer sequences for virtually any type of CRISPR nucleases. It also
+provides an off-target search engine for our main gRNA design package
+[crisprDesign](https://github.com/crisprVerse/crisprDesign) of the
+[crisprVerse](https://github.com/crisprVerse) ecosystem. See the
+`addSpacerAlignments` function in `crisprDesign` for more details.
 
 # Installation and getting started
 
@@ -87,6 +91,10 @@ Rbwa::bwa_build_index(fasta,
                       index_prefix=index)
 ```
 
+To learn how to create a BWA index for a complete genome or
+transcriptome, please visit our [tutorial
+page](https://github.com/crisprVerse/Tutorials/tree/master/Building_Genome_Indices).
+
 # Alignment using `runCrisprBwa`
 
 As an example, we align 5 spacer sequences (of length 20bp) to the
@@ -107,6 +115,14 @@ sequences of the target sequences.
 
 ``` r
 library(crisprBwa)
+```
+
+    ## Warning: multiple methods tables found for 'aperm'
+
+    ## Warning: replacing previous import 'BiocGenerics::aperm' by
+    ## 'DelayedArray::aperm' when loading 'SummarizedExperiment'
+
+``` r
 library(BSgenome.Hsapiens.UCSC.hg38)
 ```
 
@@ -123,12 +139,12 @@ library(BSgenome.Hsapiens.UCSC.hg38)
 
     ## The following objects are masked from 'package:base':
     ## 
-    ##     anyDuplicated, append, as.data.frame, basename, cbind, colnames,
-    ##     dirname, do.call, duplicated, eval, evalq, Filter, Find, get, grep,
-    ##     grepl, intersect, is.unsorted, lapply, Map, mapply, match, mget,
-    ##     order, paste, pmax, pmax.int, pmin, pmin.int, Position, rank,
-    ##     rbind, Reduce, rownames, sapply, setdiff, sort, table, tapply,
-    ##     union, unique, unsplit, which.max, which.min
+    ##     anyDuplicated, aperm, append, as.data.frame, basename, cbind,
+    ##     colnames, dirname, do.call, duplicated, eval, evalq, Filter, Find,
+    ##     get, grep, grepl, intersect, is.unsorted, lapply, Map, mapply,
+    ##     match, mget, order, paste, pmax, pmax.int, pmin, pmin.int,
+    ##     Position, rank, rbind, Reduce, rownames, sapply, setdiff, sort,
+    ##     table, tapply, union, unique, unsplit, which.max, which.min
 
     ## Loading required package: S4Vectors
 
@@ -244,19 +260,19 @@ sessionInfo()
     ## 
     ## other attached packages:
     ##  [1] BSgenome.Hsapiens.UCSC.hg38_1.4.4 BSgenome_1.65.2                  
-    ##  [3] rtracklayer_1.57.0                Biostrings_2.65.2                
-    ##  [5] XVector_0.37.0                    GenomicRanges_1.49.1             
-    ##  [7] GenomeInfoDb_1.33.5               IRanges_2.31.2                   
-    ##  [9] S4Vectors_0.35.1                  BiocGenerics_0.43.1              
+    ##  [3] rtracklayer_1.57.0                Biostrings_2.65.3                
+    ##  [5] XVector_0.37.1                    GenomicRanges_1.49.1             
+    ##  [7] GenomeInfoDb_1.33.7               IRanges_2.31.2                   
+    ##  [9] S4Vectors_0.35.3                  BiocGenerics_0.43.4              
     ## [11] crisprBwa_1.1.3                   Rbwa_1.1.0                       
     ## 
     ## loaded via a namespace (and not attached):
-    ##  [1] SummarizedExperiment_1.27.1 tidyselect_1.1.2           
+    ##  [1] SummarizedExperiment_1.27.2 tidyselect_1.1.2           
     ##  [3] xfun_0.32                   purrr_0.3.4                
     ##  [5] lattice_0.20-45             vctrs_0.4.1                
     ##  [7] htmltools_0.5.3             yaml_2.3.5                 
     ##  [9] utf8_1.2.2                  XML_3.99-0.10              
-    ## [11] rlang_1.0.4                 pillar_1.8.1               
+    ## [11] rlang_1.0.5                 pillar_1.8.1               
     ## [13] glue_1.6.2                  BiocParallel_1.31.12       
     ## [15] bit64_4.0.5                 matrixStats_0.62.0         
     ## [17] GenomeInfoDbData_1.2.8      lifecycle_1.0.1            
@@ -266,18 +282,18 @@ sessionInfo()
     ## [25] Biobase_2.57.1              knitr_1.40                 
     ## [27] tzdb_0.3.0                  fastmap_1.1.0              
     ## [29] parallel_4.2.1              fansi_1.0.3                
-    ## [31] crisprBase_1.1.5            readr_2.1.2                
+    ## [31] crisprBase_1.1.8            readr_2.1.2                
     ## [33] DelayedArray_0.23.1         vroom_1.5.7                
     ## [35] bit_4.0.4                   Rsamtools_2.13.4           
     ## [37] rjson_0.2.21                hms_1.1.2                  
     ## [39] digest_0.6.29               stringi_1.7.8              
     ## [41] BiocIO_1.7.1                grid_4.2.1                 
-    ## [43] cli_3.3.0                   tools_4.2.1                
+    ## [43] cli_3.4.0                   tools_4.2.1                
     ## [45] bitops_1.0-7                magrittr_2.0.3             
     ## [47] RCurl_1.98-1.8              tibble_3.1.8               
     ## [49] crayon_1.5.1                pkgconfig_2.0.3            
     ## [51] ellipsis_0.3.2              Matrix_1.4-1               
-    ## [53] rmarkdown_2.15.2            rstudioapi_0.14            
+    ## [53] rmarkdown_2.16              rstudioapi_0.14            
     ## [55] R6_2.5.1                    GenomicAlignments_1.33.1   
     ## [57] compiler_4.2.1
 

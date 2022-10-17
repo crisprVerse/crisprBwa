@@ -34,9 +34,12 @@ BWA prior to using `crisprBwa`.
 The latter function (`runCrisprBwa`) is specifically designed
 to map and annotate CRISPR guide RNA (gRNA) spacer sequences using
 CRISPR nuclease objects and CRISPR genomic arithmetics defined in
-the Bioconductor `crisprBase` package. This enables a fast and accurate
-on-target and off-target search of gRNA spacer sequences for virtually any
-type of CRISPR nucleases. 
+the Bioconductor package [crisprBase](https://github.com/crisprVerse/crisprBase).
+This enables a fast and accurate on-target and off-target search of 
+gRNA spacer sequences for virtually any type of CRISPR nucleases. 
+It also provides an off-target search engine for our main gRNA design package [crisprDesign](https://github.com/crisprVerse/crisprDesign) of the 
+[crisprVerse](https://github.com/crisprVerse) ecosystem. See the 
+`addSpacerAlignments` function in `crisprDesign` for more details. 
 
 
 
@@ -95,6 +98,11 @@ index <- file.path(outdir, "chr12")
 Rbwa::bwa_build_index(fasta,
                       index_prefix=index)
 ```
+
+To learn how to create a BWA index for a complete genome or transcriptome,
+please visit our [tutorial page](https://github.com/crisprVerse/Tutorials/tree/master/Building_Genome_Indices).
+
+
 
 # Alignment using `runCrisprBwa`
 
