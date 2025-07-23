@@ -1,6 +1,6 @@
 #library(crisprDesign)
 #library(GenomicRanges)
-#library(GenomeInfoDb)
+#library(Seqinfo)
 library(BSgenome)
 library(Biostrings)
 library(BSgenome.Hsapiens.UCSC.hg38)

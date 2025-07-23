@@ -1,6 +1,6 @@
 Package: crisprBwa
-Version: 1.13.0
-Date: 2022-10-17
+Version: 1.13.1
+Date: 2025-07-22
 Title: BWA-based alignment of CRISPR gRNA spacer sequences
 Authors@R: c(
     person("Jean-Philippe", "Fortin", email = "fortin946@gmail.com", role = c("aut", "cre")))
@@ -10,7 +10,7 @@ Imports:
     BiocGenerics,
     BSgenome,
     crisprBase (>= 0.99.15),
-    GenomeInfoDb,
+    Seqinfo,
     Rbwa,
     readr,
     stats,

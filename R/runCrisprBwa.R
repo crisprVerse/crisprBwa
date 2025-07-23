@@ -54,7 +54,7 @@
 #' @importFrom crisprBase spacerLength spacerLength<- pamSide isRnase
 #' @importFrom crisprBase hasSpacerGap
 #' @importFrom crisprBase getTargetRanges
-#' @importFrom GenomeInfoDb seqnames seqlengths 
+#' @importFrom Seqinfo seqnames seqlengths 
 #' @importFrom BiocGenerics start end
 runCrisprBwa <- function(spacers,
                          bwa_index=NULL,
